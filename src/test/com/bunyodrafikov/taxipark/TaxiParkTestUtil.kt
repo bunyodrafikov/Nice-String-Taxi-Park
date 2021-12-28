@@ -1,4 +1,9 @@
-package taxipark
+package bunyodrafikov.taxipark
+
+import jesusgsdev.taxipark.Driver
+import jesusgsdev.taxipark.Passenger
+import jesusgsdev.taxipark.TaxiPark
+import jesusgsdev.taxipark.Trip
 
 fun driver(i: Int) = Driver("D-$i")
 fun passenger(i: Int) = Passenger("P-$i")
@@ -23,12 +28,12 @@ fun trip(driverIndex: Int, passenger: Int, duration: Int = 10, distance: Double 
 fun TaxiPark.display() = buildString {
     appendln()
     appendln("Taxi park:")
-    appendln("Drivers: ${allDrivers.map { it.name }}")
-    appendln("Passengers: ${allPassengers.map { it.name }}")
-    appendln("Trips: ${trips.map { it.display() }}")
+    appendln("Drivers: ${allDrivers.joinToString { it.name }}")
+    appendln("Passengers: ${allPassengers.joinToString { it.name }}")
+    appendln("Trips: ${trips.joinToString { it.display() }}")
 }
 
 fun Trip.display(): String {
     val discountText = discount?.let { ", $it" } ?: ""
-    return "(${driver.name}, ${passengers.map { it.name }}, $duration, $distance$discountText)"
+    return "(${driver.name}, ${passengers.joinToString(prefix = "[", postfix = "]") { it.name }}, $duration, $distance$discountText)"
 }
